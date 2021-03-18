@@ -1,0 +1,27 @@
+@import '~vuetify/src/styles/settings/_variables';
+
+@function breackpoint($value) {
+    @return map-get($grid-breakpoints, $value);
+}
+
+@function getMedia($value) {
+    @return map-get($display-breakpoints, $value);
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    @media #{getMedia('xs-only')} {
+        padding: 0 1rem;
+    }
+    @media #{getMedia('sm-only')} {
+        max-width: breackpoint('sm');
+    }
+    @media #{getMedia('md-only')} {
+        max-width: breackpoint('md');
+    }
+    @media #{getMedia('lg-and-up')} {
+        max-width: breackpoint('lg');
+    }
+}

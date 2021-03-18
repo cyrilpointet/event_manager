@@ -1,0 +1,60 @@
+<template>
+    <div class="container mt-4">
+        <div v-if="isLogged">
+            <h1>Mon compte</h1>
+            <p>Hello {{ user.name }}</p>
+        </div>
+        <div v-else>
+            <transition name="fade" mode="out-in">
+                <v-card v-if="hasAccount" key="Login">
+                    <v-card-title>Me connecter</v-card-title>
+                    <v-card-text>
+                        <Login />
+                    </v-card-text>
+                </v-card>
+
+                <v-card v-if="!hasAccount" key="Register">
+                    <v-card-title>Créer mon compte</v-card-title>
+                    <v-card-text>
+                        <Register />
+                    </v-card-text>
+                </v-card>
+            </transition>
+
+            <div class="d-flex justify-center pa-6">
+                <v-btn small color="primary" @click="hasAccount = !hasAccount">
+                    {{
+                        hasAccount
+                            ? "Je n'ai pas de compte"
+                            : "J'ai déjà un compte"
+                    }}
+                </v-btn>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapGetters, mapState } from "vuex";
+
+import Login from "@/user/component/Login";
+import Register from "@/user/component/Register";
+
+export default {
+    name: "UserPage",
+    components: { Login, Register },
+    data() {
+        return {
+            hasAccount: false,
+        };
+    },
+    computed: {
+        ...mapState({
+            user: (state) => state.user.user,
+        }),
+        ...mapGetters({
+            isLogged: "user/isLogged",
+        }),
+    },
+};
+</script>
