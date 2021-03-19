@@ -35,6 +35,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "mix": "0.0.1",
         "vue": "^2.6.12",
         "vue-router": "^3.5.1",
         "vuelidate": "^0.7.6",
