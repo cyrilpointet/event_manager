@@ -9,9 +9,12 @@ const opts = {
         themes: {
             light: {
                 primary: colors.orange,
-                "primary-dark": colors.orange.darken2,
                 error: colors.red.darken2,
+                black: colors.black,
             },
+        },
+        options: {
+            customProperties: true,
         },
     },
 };

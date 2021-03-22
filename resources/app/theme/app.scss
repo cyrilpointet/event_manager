@@ -12,6 +12,8 @@
     margin-left: auto;
     margin-right: auto;
     width: 100%;
+    //background-color: var(--v-primary-lighten4);
+
     @media #{getMedia('xs-only')} {
         padding: 0 1rem;
     }

@@ -1,8 +1,7 @@
 <template>
     <div class="container mt-4">
         <div v-if="isLogged">
-            <h1>Mon compte</h1>
-            <p>Hello {{ user.name }}</p>
+            <Account />
         </div>
         <div v-else>
             <transition name="fade" mode="out-in">
@@ -39,10 +38,11 @@ import { mapGetters, mapState } from "vuex";
 
 import Login from "@/user/component/Login";
 import Register from "@/user/component/Register";
+import Account from "@/user/component/Account";
 
 export default {
     name: "UserPage",
-    components: { Login, Register },
+    components: { Login, Register, Account },
     data() {
         return {
             hasAccount: false,

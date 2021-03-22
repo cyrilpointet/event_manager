@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <h1>
+        <h1 class="text-center">Homepage</h1>
+        <h2>
             Bienvenue <span v-if="isLogged">{{ user.name }}</span>
-        </h1>
-        <p>homepage</p>
+        </h2>
     </div>
 </template>
 
