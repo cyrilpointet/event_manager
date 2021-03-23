@@ -63,4 +63,11 @@ class UserController extends Controller
 
         return response($response, 201);
     }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        $user->teams;
+        return $user;
+    }
 }

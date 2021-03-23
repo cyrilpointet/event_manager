@@ -16,10 +16,13 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
-        User::create([
-            'name' => 'user',
-            'email' => 'user@user.user',
-            'password' => Hash::make('user')
-        ]);
+
+        for ($i=0; $i<10; $i++) {
+            User::create([
+                'name' => 'user' . ($i + 1),
+                'email' => 'user' . ($i + 1) . '@user.user',
+                'password' => Hash::make('user')
+            ]);
+        }
     }
 }

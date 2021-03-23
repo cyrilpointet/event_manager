@@ -34,7 +34,6 @@ class ApiConsumer {
     }
 
     get(url) {
-        console.log(this.headers);
         return new Promise((resolve, reject) => {
             axios
                 .get(BASE_URL + url, { headers: this.headers })

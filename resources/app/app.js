@@ -16,7 +16,6 @@ new Vue({
         const token = localStorage.getItem("token");
         if (token) {
             ApiConsumer.setToken(token);
-            console.log(token, ApiConsumer.headers);
             try {
                 await this.$store.dispatch("user/getUserWithToken");
                 await this.$store.commit("user/setToken", token);
