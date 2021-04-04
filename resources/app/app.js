@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-import vuetify from "@/theme/vuetify"; // path to vuetify export
+import vuetify from "@/theme/vuetify";
 import App from "@/App";
 import { store } from "@/common/store/store";
 import { ApiConsumer } from "@/common/services/ApiConsumer";
@@ -21,11 +21,15 @@ new Vue({
                 await this.$store.commit("user/setToken", token);
             } catch {
                 this.$store.dispatch("user/logout");
-                this.$router.push({ name: "account" });
+                if (this.$route.name !== "account") {
+                    this.$router.push({ name: "account" });
+                }
             }
         } else {
             this.$store.dispatch("user/logout");
-            this.$router.push({ name: "account" });
+            if (this.$route.name !== "account") {
+                this.$router.push({ name: "account" });
+            }
         }
     },
     render: (h) => h(App),

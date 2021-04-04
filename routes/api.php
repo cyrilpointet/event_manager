@@ -22,5 +22,12 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [UserController::class, 'show']);
     // Group
     Route::post('/team', [TeamController::class, 'create']);
+});
+
+Route::middleware(['auth:sanctum', 'isTeamMember'])->group(function () {
     Route::get('/team/{id}', [TeamController::class, 'show']);
+});
+
+Route::middleware(['auth:sanctum', 'isTeamAdmin'])->group(function () {
+    Route::delete('/team/{id}', [TeamController::class, 'delete']);
 });

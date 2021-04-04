@@ -18,7 +18,7 @@ class TeamsTableSeeder extends Seeder
         $team = Team::create([
             'name' => 'testGroupNoToto'
         ]);
-        $team->users()->attach(1);
+        $team->users()->attach(1, ['admin' => true]);
         $team->users()->attach(2);
         $team->save();
     }

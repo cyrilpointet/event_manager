@@ -20,6 +20,13 @@ export const userStore = {
         setToken(state, value) {
             state.token = value;
         },
+        addTeam(state, value) {
+            state.user.teams.push(value);
+        },
+        removeTeam(state, teamId) {
+            const teams = state.user.teams.filter((elem) => elem.id !== teamId);
+            state.user.teams = teams;
+        },
     },
     actions: {
         storeUserAndToken(context, value) {

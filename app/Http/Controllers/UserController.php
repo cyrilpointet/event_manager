@@ -30,6 +30,7 @@ class UserController extends Controller
         ]);
 
         $token = $user->createToken('event_manager')->plainTextToken;
+        $user->teams;
 
         $response = [
             'user' => $user,
@@ -55,6 +56,7 @@ class UserController extends Controller
         }
 
         $token = $user->createToken('event_manager')->plainTextToken;
+        $user->teams;
 
         $response = [
             'user' => $user,

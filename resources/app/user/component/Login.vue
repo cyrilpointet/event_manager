@@ -49,7 +49,9 @@ export default {
                     password: this.password,
                 });
                 this.ajaxPending = false;
-                this.$router.push({ name: "home" });
+                if (this.$route.name !== "home") {
+                    this.$router.push({ name: "home" });
+                }
             } catch (error) {
                 this.ajaxPending = false;
                 const event = new CustomEvent("displayMsg", {

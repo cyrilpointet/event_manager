@@ -17,7 +17,9 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch("user/logout");
-            this.$router.push({ name: "account" });
+            if (this.$route.name !== "account") {
+                this.$router.push({ name: "account" });
+            }
         },
     },
 };

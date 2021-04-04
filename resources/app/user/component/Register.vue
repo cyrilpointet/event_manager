@@ -24,7 +24,7 @@
                 color="primary"
                 :disabled="!valid"
                 :loading="ajaxPending"
-                @click="logUser"
+                @click="register"
             >
                 ok
             </v-btn>
@@ -48,7 +48,7 @@ export default {
         };
     },
     methods: {
-        async logUser() {
+        async register() {
             this.ajaxPending = true;
             try {
                 await this.$store.dispatch("user/createUser", {
@@ -67,7 +67,6 @@ export default {
                     },
                 });
                 document.dispatchEvent(event);
-                console.log(event);
             }
         },
     },

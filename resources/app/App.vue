@@ -8,7 +8,7 @@
                     </span>
                 </router-link>
                 <span class="flex-grow-1"></span>
-                <v-menu offset-y>
+                <v-menu offset-y v-if="isLogged">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn icon v-bind="attrs" v-on="on">
                             <v-icon>mdi-account</v-icon>
@@ -60,7 +60,9 @@ export default Vue.extend({
     methods: {
         logout() {
             this.$store.dispatch("user/logout");
-            this.$router.push({ name: "account" });
+            if (this.$route.name !== "account") {
+                this.$router.push({ name: "account" });
+            }
         },
     },
 });

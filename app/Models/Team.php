@@ -19,6 +19,6 @@ class Team extends Model
             User::class,
             'teams_users',
             'team_id',
-            'user_id')->withPivot('admin',);
+            'user_id')->withPivot('admin');
     }
 }

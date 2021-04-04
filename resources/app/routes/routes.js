@@ -1,5 +1,6 @@
 import Home from "@/home/layout/HomePage";
 import UserPage from "@/user/layout/UserPage";
+import TeamPage from "@/team/layout/TeamPage";
 
 export const routes = [
     {
@@ -12,5 +13,10 @@ export const routes = [
         path: "/account",
         name: "account",
         component: UserPage,
+    },
+    {
+        path: "/team/:id",
+        name: "team",
+        component: TeamPage,
     },
 ];

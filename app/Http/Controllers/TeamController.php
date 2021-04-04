@@ -18,7 +18,7 @@ class TeamController extends Controller
         ]);
         $user = $request->user();
 
-        $team->users()->attach($user->id);
+        $team->users()->attach($user->id, ['admin' => true]);
         $team->users;
 
         return $team;
@@ -35,5 +35,20 @@ class TeamController extends Controller
         $team->users;
 
         return response($team, 200);
+    }
+
+    public function delete($id)
+    {
+        $group = Team::find($id);
+        if (null === $group) {
+            return response([
+                "message" => "Groupe inconnu"
+            ], 404);
+        }
+
+        $group->delete();
+        return response([
+            'message' => 'Groupe supprimé'
+        ], 200);
     }
 }
