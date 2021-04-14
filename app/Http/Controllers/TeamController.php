@@ -51,4 +51,90 @@ class TeamController extends Controller
             'message' => 'Groupe supprimé'
         ], 200);
     }
+
+    public function manageAdmin(Request $request, $id)
+    {
+        $request->validate([
+            'memberId' => 'required',
+            'admin' => 'required',
+        ]);
+        $team = Team::find($id);
+        if (null === $team) {
+            return response([
+                "message" => "Groupe inconnu"
+            ], 404);
+        }
+
+        $adminCount = 0;
+        foreach ($team->users as $elem) {
+            if (1 === $elem->pivot->admin) {
+                $adminCount++;
+            }
+        }
+        if (2 > $adminCount && false === $request->admin) {
+            return response([
+                "message" => "Vous ne pouvez laisser un groupe sans admin"
+            ], 403);
+        }
+
+        $team->users()->updateExistingPivot($request->memberId, [
+            'admin' => $request->admin,
+        ]);
+
+        $team = Team::find($id);
+        $team->users;
+
+        return response($team, 200);
+    }
+
+    public function removeMember(Request $request, $id, $memberId)
+    {
+        $team = Team::find($id);
+        if (null === $team) {
+            return response([
+                "message" => "Groupe inconnu"
+            ], 404);
+        }
+
+        $user = $request->user();
+        if ($user->id === $memberId) {
+            return response([
+                "message" => "Vous ne pouvez vous supprimer vous-même. Utilisez la fonction 'Quitter'"
+            ], 403);
+        }
+
+        $team->users()->detach($memberId);
+
+        $team->users;
+
+        return response($team, 200);
+    }
+
+    public function leaveTeam(Request $request, $id)
+    {
+        $team = Team::find($id);
+        if (null === $team) {
+            return response([
+                "message" => "Groupe inconnu"
+            ], 404);
+        }
+
+        $user = $request->user();
+        foreach ($team->users as $elem) {
+            if ($elem->id === $user->id && 1 === $elem->pivot->admin) {
+                return response([
+                    "message" => "Vous ne pouvez quitter un groupe dont vous êtes admin"
+                ], 403);
+                exit;
+            }
+        }
+
+        $team->users()->detach($user->id);
+
+        $team->users;
+
+        return response([
+            "message" => "Groupe quitté"
+        ], 200);
+    }
 }

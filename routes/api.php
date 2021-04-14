@@ -26,8 +26,11 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::middleware(['auth:sanctum', 'isTeamMember'])->group(function () {
     Route::get('/team/{id}', [TeamController::class, 'show']);
+    Route::delete('/team/{id}/leave', [TeamController::class, 'leaveTeam']);
 });
 
 Route::middleware(['auth:sanctum', 'isTeamAdmin'])->group(function () {
     Route::delete('/team/{id}', [TeamController::class, 'delete']);
+    Route::put('/team/{id}/admin', [TeamController::class, 'manageAdmin']);
+    Route::delete('/team/{id}/member/{memberId}', [TeamController::class, 'removeMember']);
 });
