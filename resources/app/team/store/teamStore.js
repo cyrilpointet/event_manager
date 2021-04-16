@@ -20,7 +20,7 @@ export const teamStore = {
         setTeam(state, value) {
             state.team = value;
         },
-        removeTeam(state, value) {
+        removeTeam(state) {
             state.team = null;
         },
     },

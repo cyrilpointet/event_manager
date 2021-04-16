@@ -15,4 +15,12 @@ export class Team {
         const createdAt = new Date(this.created_at);
         return createdAt.toLocaleDateString("fr-FR");
     }
+
+    get adminCount() {
+        let admins = 0;
+        this.members.forEach((elem) => {
+            admins += elem.isAdmin ? 1 : 0;
+        });
+        return admins;
+    }
 }

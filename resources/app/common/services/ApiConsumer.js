@@ -33,6 +33,19 @@ class ApiConsumer {
         });
     }
 
+    put(url, value) {
+        return new Promise((resolve, reject) => {
+            axios
+                .put(BASE_URL + url, value, { headers: this.headers })
+                .then((resp) => {
+                    resolve(resp.data);
+                })
+                .catch((e) => {
+                    reject(e);
+                });
+        });
+    }
+
     get(url) {
         return new Promise((resolve, reject) => {
             axios

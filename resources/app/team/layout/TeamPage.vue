@@ -5,19 +5,22 @@
             <h1>{{ team.name }}</h1>
             <p>Créé le : {{ team.createdAt }}</p>
             <v-btn v-if="isUserAdmin" @click="deleteTeam">supprimer</v-btn>
-            <MembersViewer />
+            <v-btn v-if="!isUserAdmin" @click="leaveTeam">Quitter</v-btn>
+            <MembersViewer v-if="!isUserAdmin" />
+            <MembersManager v-if="isUserAdmin"></MembersManager>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import MembersViewer from "@/team/component/MembersViewer";
 import { ApiConsumer } from "@/common/services/ApiConsumer";
+import MembersViewer from "@/team/component/MembersViewer";
+import MembersManager from "@/team/component/MembersManager";
 
 export default {
     name: "TeamPage",
-    components: { MembersViewer },
+    components: { MembersViewer, MembersManager },
     computed: {
         ...mapState({
             user: (state) => state.user.user,
@@ -35,10 +38,37 @@ export default {
     },
     methods: {
         async deleteTeam() {
-            await ApiConsumer.delete("team/" + this.team.id);
-            this.$store.commit("user/removeTeam", this.team.id);
-            this.$store.commit("team/removeTeam");
-            this.$router.push({ name: "home" });
+            try {
+                await ApiConsumer.delete("team/" + this.team.id);
+                this.$store.commit("user/removeTeam", this.team.id);
+                this.$store.commit("team/removeTeam");
+                this.$router.push({ name: "home" });
+            } catch {
+                const event = new CustomEvent("displayMsg", {
+                    detail: {
+                        text: "Oups...",
+                        color: "error",
+                    },
+                });
+                document.dispatchEvent(event);
+            }
+        },
+
+        async leaveTeam() {
+            try {
+                await ApiConsumer.delete(`team/${this.team.id}/leave`);
+                this.$store.commit("user/removeTeam", this.team.id);
+                this.$store.commit("team/removeTeam");
+                this.$router.push({ name: "home" });
+            } catch {
+                const event = new CustomEvent("displayMsg", {
+                    detail: {
+                        text: "Oups...",
+                        color: "error",
+                    },
+                });
+                document.dispatchEvent(event);
+            }
         },
     },
 };
