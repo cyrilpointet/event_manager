@@ -51,4 +51,13 @@ class User extends Authenticatable
             'user_id',
             'team_id')->withPivot('admin');
     }
+
+    public function invitations()
+    {
+        return $this->hasMany(
+            Invitation::class,
+            'user_email',
+            'email'
+        );
+    }
 }

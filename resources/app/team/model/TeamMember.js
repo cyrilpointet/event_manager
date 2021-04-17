@@ -4,7 +4,7 @@ export class TeamMember {
         this.name = rawUser.name;
         this.email = rawUser.email;
         this.created_at = rawUser.created_at;
-        this.isAdmin = rawUser.pivot.admin === 1;
+        this.isAdmin = rawUser.pivot.admin;
     }
 
     get createdAt() {

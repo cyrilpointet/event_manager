@@ -33,6 +33,7 @@ class TeamController extends Controller
             ], 404);
         }
         $team->users;
+        $team->invitations;
 
         return response($team, 200);
     }
@@ -67,7 +68,7 @@ class TeamController extends Controller
 
         $adminCount = 0;
         foreach ($team->users as $elem) {
-            if (1 === $elem->pivot->admin) {
+            if (true === $elem->pivot->admin) {
                 $adminCount++;
             }
         }

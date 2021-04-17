@@ -15,12 +15,19 @@ class TeamsTableSeeder extends Seeder
     public function run()
     {
         Team::truncate();
-        $team = Team::create([
-            'name' => 'testGroupNoToto'
+        $team_1 = Team::create([
+            'name' => 'testGroupNoToto 1'
         ]);
-        $team->users()->attach(1, ['admin' => true]);
-        $team->users()->attach(3);
-        $team->users()->attach(2);
-        $team->save();
+        $team_1->users()->attach(1, ['admin' => true]);
+        $team_1->users()->attach(3);
+        $team_1->users()->attach(2);
+        $team_1->save();
+
+        $team_2 = Team::create([
+            'name' => 'testGroupNoToto 2'
+        ]);
+        $team_2->users()->attach(2, ['admin' => true]);
+        $team_2->users()->attach(3);
+        $team_2->save();
     }
 }
