@@ -7,7 +7,9 @@
             <v-btn v-if="isUserAdmin" @click="deleteTeam">supprimer</v-btn>
             <v-btn v-if="!isUserAdmin" @click="leaveTeam">Quitter</v-btn>
             <MembersViewer v-if="!isUserAdmin" />
-            <MembersManager v-if="isUserAdmin"></MembersManager>
+            <MembersManager v-if="isUserAdmin" />
+            <UserInvitationsManager v-if="isUserAdmin" />
+            <UserFinder v-if="isUserAdmin" />
         </div>
     </div>
 </template>
@@ -17,10 +19,17 @@ import { mapGetters, mapState } from "vuex";
 import { ApiConsumer } from "@/common/services/ApiConsumer";
 import MembersViewer from "@/team/component/MembersViewer";
 import MembersManager from "@/team/component/MembersManager";
+import UserFinder from "@/team/component/UserFinder";
+import UserInvitationsManager from "@/team/component/UserInvitationsManager";
 
 export default {
     name: "TeamPage",
-    components: { MembersViewer, MembersManager },
+    components: {
+        MembersViewer,
+        MembersManager,
+        UserFinder,
+        UserInvitationsManager,
+    },
     computed: {
         ...mapState({
             user: (state) => state.user.user,
@@ -31,9 +40,16 @@ export default {
             isUserAdmin: "team/isUserAdmin",
         }),
     },
-    created() {
+    async created() {
         if (!this.team || this.$route.params.id !== this.team.id) {
-            this.$store.dispatch("team/getTeamById", this.$route.params.id);
+            try {
+                await this.$store.dispatch(
+                    "team/getTeamById",
+                    this.$route.params.id
+                );
+            } catch {
+                this.$router.push({ name: "home" });
+            }
         }
     },
     methods: {

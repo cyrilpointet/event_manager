@@ -43,7 +43,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required'
         ]);
@@ -74,5 +74,10 @@ class UserController extends Controller
         $user->teams;
         $user->invitations;
         return $user;
+    }
+
+    public function getUserByNameOrEmail($name)
+    {
+        return User::where('name', 'like', '%' . $name . '%')->orWhere('email', 'like', '%' . $name . '%')->take(10)->get();
     }
 }

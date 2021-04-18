@@ -18,7 +18,7 @@ class InvitationController extends Controller
         $test = Invitation::where('team_id', '=', $id)->where('user_email', '=', $request->user_email)->get();
         if (0 !== count($test)) {
             return response([
-                "message" => "invitation déjà existante"
+                "message" => "Une invitation est déjà en cours"
             ], 403);
         }
 
@@ -27,7 +27,7 @@ class InvitationController extends Controller
             $teams = $user->teams()->where('team_id', '=', $id)->get();
             if (0 !== count($teams)) {
                 return response([
-                    'message' => ['Déjà membre du groupe']
+                    'message' => 'Déjà membre du groupe'
                 ], 403);
             }
         }
@@ -37,6 +37,7 @@ class InvitationController extends Controller
             'user_email' => $request->user_email,
             'is_from_team' => true
         ]);
+        $invitation->team;
 
         return response($invitation, 201);
     }
@@ -51,14 +52,14 @@ class InvitationController extends Controller
         $teams = $user->teams()->where('team_id', '=', $request->team_id)->get();
         if (0 !== count($teams)) {
             return response([
-                'message' => ['Déjà membre du groupe']
+                'message' => 'Déjà membre du groupe'
             ], 403);
         }
 
         $test = Invitation::where('team_id', '=', $request->team_id)->where('user_email', '=', $user->email)->get();
         if (0 !== count($test)) {
             return response([
-                "message" => "invitation déjà existante"
+                "message" => "Une invitation est déjà en cours"
             ], 403);
         }
 
@@ -67,6 +68,7 @@ class InvitationController extends Controller
             'user_email' => $user->email,
             'is_from_team' => false
         ]);
+        $invitation->team;
 
         return response($invitation, 201);
     }
@@ -101,10 +103,12 @@ class InvitationController extends Controller
         if (true === $request->status) {
             $team->users()->attach($user->id, ['admin' => false]);
         }
-        $team->users;
-
         $invitation->delete();
-        return $team;
+
+        $user->teams;
+        $user->invitations;
+
+        return $user;
     }
 
     public function manageUserInvitation(Request $request, $id, $invitationId)
@@ -148,9 +152,11 @@ class InvitationController extends Controller
         if (true === $request->status) {
             $team->users()->attach($user->id, ['admin' => false]);
         }
-        $team->users;
-
         $invitation->delete();
+
+        $team->users;
+        $team->invitations;
+
         return $team;
     }
 }

@@ -20,6 +20,7 @@ class TeamController extends Controller
 
         $team->users()->attach($user->id, ['admin' => true]);
         $team->users;
+        $team->invitations;
 
         return $team;
     }
@@ -36,6 +37,11 @@ class TeamController extends Controller
         $team->invitations;
 
         return response($team, 200);
+    }
+
+    public function getTeamsByName($name)
+    {
+        return Team::where('name', 'like', '%' . $name . '%')->get();
     }
 
     public function delete($id)
@@ -84,6 +90,7 @@ class TeamController extends Controller
 
         $team = Team::find($id);
         $team->users;
+        $team->invitations;
 
         return response($team, 200);
     }
@@ -107,6 +114,7 @@ class TeamController extends Controller
         $team->users()->detach($memberId);
 
         $team->users;
+        $team->invitations;
 
         return response($team, 200);
     }
@@ -133,6 +141,7 @@ class TeamController extends Controller
         $team->users()->detach($user->id);
 
         $team->users;
+        $team->invitations;
 
         return response([
             "message" => "Groupe quitté"

@@ -23,6 +23,9 @@ export const teamStore = {
         removeTeam(state) {
             state.team = null;
         },
+        addInvitation(state, invitation) {
+            state.team.invitations.push(invitation);
+        },
     },
     actions: {
         getTeamById(context, teamId) {

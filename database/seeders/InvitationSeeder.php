@@ -26,5 +26,10 @@ class InvitationSeeder extends Seeder
             'user_email' => 'user4@user.user',
             'is_from_team' => false
         ]);
+        Invitation::create([
+            'team_id' => 1,
+            'user_email' => 'user5@user.user',
+            'is_from_team' => false
+        ]);
     }
 }

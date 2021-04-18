@@ -11,8 +11,10 @@ Route::post('/invitation', [InvitationController::class, 'createFromUser']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [UserController::class, 'show']);
-    // Group
+    Route::get('/users/{name}', [UserController::class, 'getUserByNameOrEmail']);
+    // Teams
     Route::post('/team', [TeamController::class, 'create']);
+    Route::get('/teams/{name}', [TeamController::class, 'getTeamsByName']);
     // invitations
     Route::post('/user/invitation', [InvitationController::class, 'createFromUser']);
     Route::put('user/invitation/{id}', [InvitationController::class, 'manageTeamInvitation']);

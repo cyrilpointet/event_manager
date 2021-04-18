@@ -6,7 +6,9 @@
         </h2>
         <div v-if="isLogged && user">
             <TeamViewer />
+            <TeamInvitationsManager />
             <CreateTeam />
+            <TeamFinder />
         </div>
     </div>
 </template>
@@ -15,10 +17,12 @@
 import { mapGetters, mapState } from "vuex";
 import CreateTeam from "@/user/component/CreateTeam";
 import TeamViewer from "@/user/component/TeamsViewer";
+import TeamFinder from "@/user/component/TeamFinder";
+import TeamInvitationsManager from "@/user/component/TeamInvitationsManager";
 
 export default {
     name: "Home",
-    components: { CreateTeam, TeamViewer },
+    components: { CreateTeam, TeamViewer, TeamFinder, TeamInvitationsManager },
     computed: {
         ...mapGetters({
             isLogged: "user/isLogged",

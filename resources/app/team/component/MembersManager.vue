@@ -92,6 +92,7 @@ export default {
                 );
                 this.$store.commit("team/setTeam", new Team(team));
             } catch (error) {
+                console.log(error);
                 const event = new CustomEvent("displayMsg", {
                     detail: {
                         text: "Oups...",
