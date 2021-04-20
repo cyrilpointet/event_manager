@@ -18,27 +18,22 @@
         </v-card>
 
         <v-card class="mt-4" v-if="user.invitations.length > 0">
-            <v-card-title>Demandes d'adhésion</v-card-title>
+            <v-card-title>Invitations</v-card-title>
             <v-card-text>
                 <TeamInvitationsManager />
             </v-card-text>
         </v-card>
-
-        <div class="text-center mt-4">
-            <Logout />
-        </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import Logout from "@/user/component/Logout";
 import TeamViewer from "@/user/component/TeamsViewer";
 import TeamInvitationsManager from "@/user/component/TeamInvitationsManager";
 
 export default {
     name: "Account",
-    components: { Logout, TeamViewer, TeamInvitationsManager },
+    components: { TeamViewer, TeamInvitationsManager },
     computed: {
         ...mapState({
             user: (state) => state.user.user,

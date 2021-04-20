@@ -2,7 +2,7 @@
     <div>
         <div v-if="isLogged && user">
             <v-card class="mb-4" v-if="user.invitations.length > 0">
-                <v-card-title>Demandes d'adhésion</v-card-title>
+                <v-card-title>Invitations</v-card-title>
                 <v-card-text>
                     <TeamInvitationsManager />
                 </v-card-text>
