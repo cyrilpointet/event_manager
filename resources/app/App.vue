@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app style="background-color: #f5f5f5">
         <div class="primary pa-2">
             <div class="d-flex align-center container">
                 <router-link to="/">
@@ -29,10 +29,14 @@
             </div>
         </div>
 
-        <div>
+        <div class="container mainView pt-4">
             <router-view />
+            <div>
+                <v-calendar />
+            </div>
         </div>
         <MsgDisplayer />
+        <ConfirmModal />
     </v-app>
 </template>
 
@@ -40,10 +44,11 @@
 import Vue from "vue";
 import { mapGetters, mapState } from "vuex";
 import MsgDisplayer from "@/common/component/MsgDisplayer";
+import ConfirmModal from "@/common/component/ConfirmModal";
 
 export default Vue.extend({
     name: "app",
-    components: { MsgDisplayer },
+    components: { MsgDisplayer, ConfirmModal },
     computed: {
         ...mapState({
             user: (state) => state.user.user,

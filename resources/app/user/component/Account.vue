@@ -1,10 +1,30 @@
 <template>
     <div>
-        <h1 class="text-center">Mon compte</h1>
-        <p>Nom: {{ user.name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Inscription: {{ user.createdAt }}</p>
-        <div class="text-center">
+        <v-card>
+            <v-card-title>
+                {{ user.name }}
+            </v-card-title>
+            <v-card-text>
+                <p>Email: {{ user.email }}</p>
+                <p>Inscription: {{ user.createdAt }}</p>
+            </v-card-text>
+        </v-card>
+
+        <v-card class="mt-4">
+            <v-card-title>Mes groupes</v-card-title>
+            <v-card-text>
+                <TeamViewer />
+            </v-card-text>
+        </v-card>
+
+        <v-card class="mt-4" v-if="user.invitations.length > 0">
+            <v-card-title>Demandes d'adhésion</v-card-title>
+            <v-card-text>
+                <TeamInvitationsManager />
+            </v-card-text>
+        </v-card>
+
+        <div class="text-center mt-4">
             <Logout />
         </div>
     </div>
@@ -13,10 +33,12 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import Logout from "@/user/component/Logout";
+import TeamViewer from "@/user/component/TeamsViewer";
+import TeamInvitationsManager from "@/user/component/TeamInvitationsManager";
 
 export default {
     name: "Account",
-    components: { Logout },
+    components: { Logout, TeamViewer, TeamInvitationsManager },
     computed: {
         ...mapState({
             user: (state) => state.user.user,

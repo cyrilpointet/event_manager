@@ -1,5 +1,5 @@
 <template>
-    <v-list>
+    <v-list dense>
         <template v-for="(team, index) in user.teams">
             <v-divider :key="'divider' + team.id" v-if="index !== 0" />
             <v-list-item
@@ -7,14 +7,11 @@
                 @click="$router.push({ name: 'team', params: { id: team.id } })"
             >
                 <v-list-item-content>
-                    <v-list-item-title>Nom: {{ team.name }}</v-list-item-title>
-                    <v-list-item-subtitle>
-                        Créé le: {{ team.createdAt }}
-                    </v-list-item-subtitle>
-                    <v-list-item-subtitle>
-                        Admin : {{ team.isAdmin ? "oui" : "non" }}
-                    </v-list-item-subtitle>
+                    <v-list-item-title>{{ team.name }}</v-list-item-title>
                 </v-list-item-content>
+                <v-list-item-icon>
+                    <v-icon> mdi-chevron-right </v-icon>
+                </v-list-item-icon>
             </v-list-item>
         </template>
     </v-list>

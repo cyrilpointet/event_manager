@@ -1,14 +1,33 @@
 <template>
-    <div class="container">
-        <h1 class="text-center">Homepage</h1>
-        <h2>
-            Bienvenue <span v-if="isLogged">{{ user.name }}</span>
-        </h2>
+    <div>
         <div v-if="isLogged && user">
-            <TeamViewer />
-            <TeamInvitationsManager />
-            <CreateTeam />
-            <TeamFinder />
+            <v-card class="mb-4" v-if="user.invitations.length > 0">
+                <v-card-title>Demandes d'adhésion</v-card-title>
+                <v-card-text>
+                    <TeamInvitationsManager />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4">
+                <v-card-title>Mes groupes</v-card-title>
+                <v-card-text>
+                    <TeamViewer />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4">
+                <v-card-title>Créer un groupe</v-card-title>
+                <v-card-text>
+                    <CreateTeam />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4">
+                <v-card-title>Chercher un groupe</v-card-title>
+                <v-card-text>
+                    <TeamFinder />
+                </v-card-text>
+            </v-card>
         </div>
     </div>
 </template>

@@ -1,12 +1,7 @@
 <template>
-    <div>
-        <h3>Créer un groupe</h3>
-        <v-form ref="form" v-model="valid">
-            <v-text-field
-                v-model="name"
-                label="Nom"
-                :rules="[rules.required]"
-            />
+    <v-form ref="form" v-model="valid">
+        <v-text-field v-model="name" label="Nom" :rules="[rules.required]" />
+        <div class="d-flex justify-center">
             <v-btn
                 color="primary"
                 :disabled="!valid"
@@ -15,8 +10,8 @@
             >
                 Créer
             </v-btn>
-        </v-form>
-    </div>
+        </div>
+    </v-form>
 </template>
 
 <script>

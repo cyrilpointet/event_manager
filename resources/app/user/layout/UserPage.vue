@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-4">
+    <div>
         <div v-if="isLogged">
             <Account />
         </div>

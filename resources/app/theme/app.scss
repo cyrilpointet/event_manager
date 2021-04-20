@@ -12,7 +12,6 @@
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    //background-color: var(--v-primary-lighten4);
 
     @media #{getMedia('xs-only')} {
         padding: 0 1rem;
@@ -25,5 +24,14 @@
     }
     @media #{getMedia('lg-and-up')} {
         max-width: breackpoint('lg');
+    }
+}
+
+.mainView {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr;
+    @media #{getMedia('md-and-up')} {
+        grid-template-columns: repeat(2, 1fr);
     }
 }

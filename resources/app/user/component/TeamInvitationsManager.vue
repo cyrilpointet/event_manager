@@ -1,47 +1,41 @@
 <template>
     <div>
-        <h4>Demandes d'adhésion</h4>
-        <v-simple-table>
-            <template v-slot:default>
-                <tbody>
-                    <template v-for="invitation in user.invitations">
-                        <tr
-                            v-if="invitation.isFromTeam === true"
-                            :key="invitation.id"
-                        >
-                            <td>{{ invitation.team.name }}</td>
-                            <td>
-                                <v-btn
-                                    icon
-                                    color="primary"
-                                    :disabled="ajaxPending"
-                                    @click="
-                                        manageInvitation(invitation.id, true)
-                                    "
-                                >
-                                    <v-icon>mdi-account</v-icon>
-                                </v-btn>
-                            </td>
-                            <td>
-                                <v-btn
-                                    icon
-                                    color="error"
-                                    :disabled="ajaxPending"
-                                    @click="
-                                        manageInvitation(invitation.id, false)
-                                    "
-                                >
-                                    <v-icon>mdi-delete</v-icon>
-                                </v-btn>
-                            </td>
-                        </tr>
-                    </template>
-                    <tr v-if="user.invitations.length < 1">
-                        <td>Aucune demande en cours</td>
-                    </tr>
-                </tbody>
-            </template>
-        </v-simple-table>
+        <template v-for="(invitation, index) in user.invitations">
+            <div
+                v-if="invitation.isFromTeam === true"
+                :key="invitation.id"
+                class="d-flex flex-wrap align-center"
+                :class="
+                    index !== user.invitations.length - 1 ? 'underline' : ''
+                "
+            >
+                <p class="flex-grow-1 ma-0">{{ invitation.team.name }}</p>
+                <div>
+                    <v-btn
+                        text
+                        x-small
+                        color="primary"
+                        :disabled="ajaxPending"
+                        @click="manageInvitation(invitation.id, true)"
+                    >
+                        Accepter
+                    </v-btn>
+
+                    <v-btn
+                        text
+                        x-small
+                        color="error"
+                        :disabled="ajaxPending"
+                        @click="manageInvitation(invitation.id, false)"
+                    >
+                        Refuser
+                    </v-btn>
+                </div>
+            </div>
+        </template>
+        <div v-if="user.invitations.length < 1">
+            <p>Aucune demande en cours</p>
+        </div>
     </div>
 </template>
 
@@ -77,3 +71,9 @@ export default {
     },
 };
 </script>
+
+<style scoped lang="scss">
+.underline {
+    border-bottom: 1px solid lightgray;
+}
+</style>

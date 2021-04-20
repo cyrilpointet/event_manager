@@ -1,15 +1,44 @@
 <template>
-    <div class="container">
+    <div>
         <div v-if="!isLogged || !team">loading...</div>
         <div v-else>
-            <h1>{{ team.name }}</h1>
-            <p>Créé le : {{ team.createdAt }}</p>
-            <v-btn v-if="isUserAdmin" @click="deleteTeam">supprimer</v-btn>
-            <v-btn v-if="!isUserAdmin" @click="leaveTeam">Quitter</v-btn>
-            <MembersViewer v-if="!isUserAdmin" />
-            <MembersManager v-if="isUserAdmin" />
-            <UserInvitationsManager v-if="isUserAdmin" />
-            <UserFinder v-if="isUserAdmin" />
+            <v-card class="mb-4">
+                <v-card-title>{{ team.name }}</v-card-title>
+                <v-card-text>Créé le : {{ team.createdAt }}</v-card-text>
+                <v-card-actions>
+                    <v-btn v-if="isUserAdmin" @click="askDeleteTeam">
+                        supprimer
+                    </v-btn>
+                    <v-btn v-if="!isUserAdmin" @click="askLeaveTeam">
+                        Quitter
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+
+            <v-card
+                class="mb-4"
+                v-if="isUserAdmin && team.invitations.length > 0"
+            >
+                <v-card-title>Demandes d'adhésion</v-card-title>
+                <v-card-text>
+                    <UserInvitationsManager />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4">
+                <v-card-title>Membres</v-card-title>
+                <v-card-text>
+                    <MembersViewer v-if="!isUserAdmin" />
+                    <MembersManager v-if="isUserAdmin" />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4" v-if="isUserAdmin">
+                <v-card-title>Ajouter un membre</v-card-title>
+                <v-card-text>
+                    <UserFinder />
+                </v-card-text>
+            </v-card>
         </div>
     </div>
 </template>
@@ -53,6 +82,19 @@ export default {
         }
     },
     methods: {
+        askDeleteTeam() {
+            const event = new CustomEvent("confirmAction", {
+                detail: {
+                    title: `Supprimer ce groupe ?`,
+                    text: "Cette action est irréversible",
+                    callback: () => {
+                        this.deleteTeam();
+                    },
+                },
+            });
+            document.dispatchEvent(event);
+        },
+
         async deleteTeam() {
             try {
                 await ApiConsumer.delete("team/" + this.team.id);
@@ -68,6 +110,19 @@ export default {
                 });
                 document.dispatchEvent(event);
             }
+        },
+
+        askLeaveTeam() {
+            const event = new CustomEvent("confirmAction", {
+                detail: {
+                    title: `Quitter ce groupe ?`,
+                    text: "Cette action est irréversible",
+                    callback: () => {
+                        this.leaveTeam();
+                    },
+                },
+            });
+            document.dispatchEvent(event);
         },
 
         async leaveTeam() {

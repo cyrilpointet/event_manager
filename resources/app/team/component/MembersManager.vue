@@ -27,7 +27,7 @@
                             icon
                             v-if="isUserAdmin && member.id !== user.id"
                             color="error"
-                            @click="removeMember(member)"
+                            @click="askRemoveMember(member)"
                             :disabled="ajaxPending"
                         >
                             <v-icon>mdi-delete</v-icon>
@@ -82,6 +82,19 @@ export default {
                 document.dispatchEvent(event);
             }
             this.ajaxPending = false;
+        },
+
+        askRemoveMember(member) {
+            const event = new CustomEvent("confirmAction", {
+                detail: {
+                    title: `Supprimer ${member.name} du groupe ?`,
+                    text: "Cette action est irréversible",
+                    callback: () => {
+                        this.removeMember(member);
+                    },
+                },
+            });
+            document.dispatchEvent(event);
         },
 
         async removeMember(member) {

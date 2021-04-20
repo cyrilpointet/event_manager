@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h4>Chercher un membre</h4>
         <v-form ref="form">
             <v-text-field
                 v-model="name"
