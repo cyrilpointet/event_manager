@@ -22,8 +22,8 @@ class HappeningSeeder extends Seeder
             'description' => 'description test',
             'place' => 'place test',
             'team_id' => 1,
-            'start' => $start,
-            'end' => $end
+            'start_at' => $start,
+            'end_at' => $end
         ]);
 
         $start = new \DateTime('2021-04-25 11:21:50');
@@ -33,8 +33,8 @@ class HappeningSeeder extends Seeder
             'description' => 'description test',
             'place' => 'place test',
             'team_id' => 1,
-            'start' => $start,
-            'end' => $end
+            'start_at' => $start,
+            'end_at' => $end
         ]);
 
         $start = new \DateTime('2021-04-30 11:21:50');
@@ -44,8 +44,8 @@ class HappeningSeeder extends Seeder
             'description' => 'description test',
             'place' => 'place test',
             'team_id' => 2,
-            'start' => $start,
-            'end' => $end
+            'start_at' => $start,
+            'end_at' => $end
         ]);
     }
 }

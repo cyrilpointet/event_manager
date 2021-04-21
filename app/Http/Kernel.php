@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\EnsureIsHappeningAdmin;
 use App\Http\Middleware\EnsureIsHappeningMember;
 use App\Http\Middleware\EnsureIsTeamAdmin;
 use App\Http\Middleware\EnsureIsTeamMember;
@@ -71,5 +72,6 @@ class Kernel extends HttpKernel
         'isTeamMember' => EnsureIsTeamMember::class,
         'isTeamAdmin' => EnsureIsTeamAdmin::class,
         'isHappeningMember' => EnsureIsHappeningMember::class,
+        'isHappeningAdmin' => EnsureIsHappeningAdmin::class,
     ];
 }

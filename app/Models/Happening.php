@@ -14,8 +14,8 @@ class Happening extends Model
         'description',
         'place',
         'team_id',
-        'start',
-        'end',
+        'start_at',
+        'end_at',
     ];
 
     public function team()

@@ -23,8 +23,8 @@ class CreateHappeningsTable extends Migration
             $table->foreign('team_id')
                 ->references('id')
                 ->on('teams')->onDelete('cascade');
-            $table->timestamp('start');
-            $table->timestamp('end');
+            $table->timestamp('start_at');
+            $table->timestamp('end_at');
         });
     }
 

@@ -38,3 +38,8 @@ Route::middleware(['auth:sanctum', 'isTeamAdmin'])->group(function () {
 Route::middleware(['auth:sanctum', 'isHappeningMember'])->group(function () {
     Route::get('/happening/{id}', [HappeningController::class, 'show']);
 });
+
+Route::middleware(['auth:sanctum', 'isHappeningAdmin'])->group(function () {
+    Route::put('/happening/{id}', [HappeningController::class, 'update']);
+    Route::delete('/happening/{id}', [HappeningController::class, 'delete']);
+});
