@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\EnsureIsHappeningMember;
 use App\Http\Middleware\EnsureIsTeamAdmin;
 use App\Http\Middleware\EnsureIsTeamMember;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isTeamMember' => EnsureIsTeamMember::class,
-        'isTeamAdmin' => EnsureIsTeamAdmin::class
+        'isTeamAdmin' => EnsureIsTeamAdmin::class,
+        'isHappeningMember' => EnsureIsHappeningMember::class,
     ];
 }

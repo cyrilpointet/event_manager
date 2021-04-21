@@ -21,6 +21,7 @@ class TeamController extends Controller
         $team->users()->attach($user->id, ['admin' => true]);
         $team->users;
         $team->invitations;
+        $team->happenings;
 
         return $team;
     }
@@ -35,6 +36,7 @@ class TeamController extends Controller
         }
         $team->users;
         $team->invitations;
+        $team['upcomingHappenings'] = $team->happenings()->where('start', '>', new \DateTime())->get();
 
         return response($team, 200);
     }
@@ -91,6 +93,7 @@ class TeamController extends Controller
         $team = Team::find($id);
         $team->users;
         $team->invitations;
+        $team['upcomingHappenings'] = $team->happenings()->where('start', '>', new \DateTime())->get();
 
         return response($team, 200);
     }
@@ -115,6 +118,7 @@ class TeamController extends Controller
 
         $team->users;
         $team->invitations;
+        $team['upcomingHappenings'] = $team->happenings()->where('start', '>', new \DateTime())->get();
 
         return response($team, 200);
     }
@@ -142,6 +146,7 @@ class TeamController extends Controller
 
         $team->users;
         $team->invitations;
+        $team['upcomingHappenings'] = $team->happenings()->where('start', '>', new \DateTime())->get();
 
         return response([
             "message" => "Groupe quitté"
