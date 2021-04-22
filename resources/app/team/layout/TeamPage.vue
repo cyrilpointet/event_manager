@@ -15,6 +15,13 @@
                 </v-card-actions>
             </v-card>
 
+            <v-card class="mb-4">
+                <v-card-title>Prochains évènements</v-card-title>
+                <v-card-text>
+                    <NextTeamHappenings />
+                </v-card-text>
+            </v-card>
+
             <v-card
                 class="mb-4"
                 v-if="isUserAdmin && team.invitations.length > 0"
@@ -22,6 +29,13 @@
                 <v-card-title>Demandes d'adhésion</v-card-title>
                 <v-card-text>
                     <UserInvitationsManager />
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-4" v-if="isUserAdmin">
+                <v-card-title>Créer un évènement</v-card-title>
+                <v-card-text>
+                    <CreateHappening />
                 </v-card-text>
             </v-card>
 
@@ -48,8 +62,10 @@ import { mapGetters, mapState } from "vuex";
 import { ApiConsumer } from "@/common/services/ApiConsumer";
 import MembersViewer from "@/team/component/MembersViewer";
 import MembersManager from "@/team/component/MembersManager";
-import UserFinder from "@/team/component/UserFinder";
-import UserInvitationsManager from "@/team/component/UserInvitationsManager";
+import UserFinder from "@/invitation/component/UserFinder";
+import UserInvitationsManager from "@/invitation/component/UserInvitationsManager";
+import NextTeamHappenings from "@/team/component/NextTeamHappenings";
+import CreateHappening from "@/happening/component/CreateHappening";
 
 export default {
     name: "TeamPage",
@@ -58,6 +74,8 @@ export default {
         MembersManager,
         UserFinder,
         UserInvitationsManager,
+        NextTeamHappenings,
+        CreateHappening,
     },
     computed: {
         ...mapState({

@@ -29,7 +29,7 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import TeamViewer from "@/user/component/TeamsViewer";
-import TeamInvitationsManager from "@/user/component/TeamInvitationsManager";
+import TeamInvitationsManager from "@/invitation/component/TeamInvitationsManager";
 
 export default {
     name: "Account",

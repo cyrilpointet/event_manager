@@ -1,5 +1,5 @@
 import { TeamMember } from "@/team/model/TeamMember";
-import { Invitation } from "@/team/model/Invitation";
+import { Invitation } from "@/invitation/model/Invitation";
 import { TeamHappening } from "@/team/model/TeamHappening";
 
 export class Team {

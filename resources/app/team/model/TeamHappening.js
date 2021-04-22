@@ -8,6 +8,7 @@ export class TeamHappening {
         this.place = rawHappening.place;
         this.start_at = rawHappening.start_at;
         this.end_at = rawHappening.end_at;
+        this.status_id = rawHappening.status_id;
     }
 
     get createdAt() {
@@ -28,5 +29,10 @@ export class TeamHappening {
     get end() {
         const createdAt = new Date(this.end_at);
         return createdAt.toLocaleDateString("fr-FR");
+    }
+
+    get status() {
+        const status = ["projet", "validé", "annulé"];
+        return status[this.status_id - 1];
     }
 }

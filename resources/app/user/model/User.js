@@ -1,5 +1,5 @@
 import { UserTeam } from "@/user/model/UserTeam";
-import { Invitation } from "@/team/model/Invitation";
+import { Invitation } from "@/invitation/model/Invitation";
 
 export class User {
     constructor(rawUser) {

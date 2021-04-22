@@ -11,6 +11,7 @@ class HappeningController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'status' => 'required',
             'description' => 'required',
             'place' => 'required',
             'start_at' => 'required',
@@ -19,6 +20,7 @@ class HappeningController extends Controller
 
         $happening = Happening::create([
             'name' => $request->name,
+            'status_id' => $request->status,
             'description' => $request->description,
             'place' => $request->place,
             'team_id' => $id,
@@ -46,6 +48,7 @@ class HappeningController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'status' => 'required',
             'description' => 'required',
             'place' => 'required',
             'start_at' => 'required',
@@ -59,6 +62,7 @@ class HappeningController extends Controller
         }
 
         $happening->name = $request->name;
+        $happening->status_id = $request->status;
         $happening->description = $request->description;
         $happening->place = $request->place;
         $happening->start_at = new \DateTime($request->start_at);

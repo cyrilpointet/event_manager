@@ -34,10 +34,10 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import CreateTeam from "@/user/component/CreateTeam";
+import CreateTeam from "@/team/component/CreateTeam";
 import TeamViewer from "@/user/component/TeamsViewer";
-import TeamFinder from "@/user/component/TeamFinder";
-import TeamInvitationsManager from "@/user/component/TeamInvitationsManager";
+import TeamFinder from "@/invitation/component/TeamFinder";
+import TeamInvitationsManager from "@/invitation/component/TeamInvitationsManager";
 
 export default {
     name: "Home",

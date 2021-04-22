@@ -32,7 +32,9 @@
         <div class="container mainView pt-4">
             <router-view />
             <div>
-                <v-calendar />
+                <div style="height: auto">
+                    <v-calendar />
+                </div>
             </div>
         </div>
         <MsgDisplayer />
