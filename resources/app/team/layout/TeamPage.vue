@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div v-if="!isLogged || !team">loading...</div>
+        <div v-if="!isLogged || !team" class="d-flex justify-center">
+            <v-progress-circular indeterminate color="primary" />
+        </div>
         <div v-else>
             <v-card class="mb-4">
                 <v-card-title>{{ team.name }}</v-card-title>
@@ -32,10 +34,10 @@
                 </v-card-text>
             </v-card>
 
-            <v-card class="mb-4" v-if="isUserAdmin">
+            <v-card class="mb-4" v-if="isUserAdmin && blankEvent">
                 <v-card-title>Créer un évènement</v-card-title>
                 <v-card-text>
-                    <CreateHappening />
+                    <UpsertHappening :happening="blankEvent" />
                 </v-card-text>
             </v-card>
 
@@ -65,7 +67,9 @@ import MembersManager from "@/team/component/MembersManager";
 import UserFinder from "@/invitation/component/UserFinder";
 import UserInvitationsManager from "@/invitation/component/UserInvitationsManager";
 import NextTeamHappenings from "@/team/component/NextTeamHappenings";
-import CreateHappening from "@/happening/component/CreateHappening";
+import UpsertHappening from "@/happening/component/UpsertHappening";
+import { Happening } from "@/happening/model/Happening";
+import * as dayjs from "dayjs";
 
 export default {
     name: "TeamPage",
@@ -75,7 +79,12 @@ export default {
         UserFinder,
         UserInvitationsManager,
         NextTeamHappenings,
-        CreateHappening,
+        UpsertHappening,
+    },
+    data: function () {
+        return {
+            blankEvent: null,
+        };
     },
     computed: {
         ...mapState({
@@ -89,6 +98,7 @@ export default {
     },
     async created() {
         if (!this.team || this.$route.params.id !== this.team.id) {
+            this.$store.commit("team/removeTeam");
             try {
                 await this.$store.dispatch(
                     "team/getTeamById",
@@ -98,6 +108,26 @@ export default {
                 this.$router.push({ name: "home" });
             }
         }
+
+        const now = dayjs();
+        this.blankEvent = new Happening({
+            id: null,
+            name: "",
+            description: "",
+            place: "",
+
+            created_at: now.format("MM/DD/YYYY HH:mm:ss"),
+            updated_at: now.format("MM/DD/YYYY HH:mm:ss"),
+            start_at: now.format("MM/DD/YYYY HH:mm:ss"),
+            end_at: now.format("MM/DD/YYYY HH:mm:ss"),
+
+            status_id: 1,
+
+            team: {
+                id: this.team.id,
+                name: this.team.name,
+            },
+        });
     },
     methods: {
         askDeleteTeam() {

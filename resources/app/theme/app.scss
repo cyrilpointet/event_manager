@@ -35,3 +35,14 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+.status-1 {
+    color: var(--v-primary-base);
+}
+
+.status-2 {
+    color: var(--v-succes-base);
+}
+
+.status-3 {
+    color: var(--v-error-base);
+}

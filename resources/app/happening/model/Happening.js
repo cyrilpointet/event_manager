@@ -1,3 +1,5 @@
+import * as dayjs from "dayjs";
+
 export class Happening {
     constructor(rawHappening) {
         this.id = rawHappening.id;
@@ -6,9 +8,13 @@ export class Happening {
         this.place = rawHappening.place;
 
         this.created_at = rawHappening.created_at;
+        this._created_at = dayjs(rawHappening.created_at);
         this.updated_at = rawHappening.updated_at;
+        this._updated_at = dayjs(rawHappening.updated_at);
         this.start_at = rawHappening.start_at;
+        this._start_at = dayjs(rawHappening.start_at);
         this.end_at = rawHappening.end_at;
+        this._end_at = dayjs(rawHappening.end_at);
 
         this.status_id = rawHappening.status_id;
 
@@ -19,23 +25,19 @@ export class Happening {
     }
 
     get createdAt() {
-        const createdAt = new Date(this.created_at);
-        return createdAt.toLocaleDateString("fr-FR");
+        return this._created_at.format("DD-MM-YYYY");
     }
 
     get updatedAt() {
-        const createdAt = new Date(this.updated_at);
-        return createdAt.toLocaleDateString("fr-FR");
+        return this._updated_at.format("DD-MM-YYYY");
     }
 
     get start() {
-        const createdAt = new Date(this.start_at);
-        return createdAt.toLocaleDateString("fr-FR");
+        return this._start_at.format("DD-MM-YYYY à HH:mm");
     }
 
     get end() {
-        const createdAt = new Date(this.end_at);
-        return createdAt.toLocaleDateString("fr-FR");
+        return this._end_at.format("DD-MM-YYYY à HH:mm");
     }
 
     get status() {

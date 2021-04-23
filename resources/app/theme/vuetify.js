@@ -9,6 +9,7 @@ const opts = {
         themes: {
             light: {
                 primary: colors.orange,
+                succes: colors.green,
                 error: colors.red.darken2,
                 black: colors.black,
             },

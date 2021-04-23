@@ -1,6 +1,7 @@
 import Home from "@/home/layout/HomePage";
 import UserPage from "@/user/layout/UserPage";
 import TeamPage from "@/team/layout/TeamPage";
+import HappeningPage from "@/happening/layout/HappeningPage";
 
 export const routes = [
     {
@@ -18,5 +19,10 @@ export const routes = [
         path: "/team/:id",
         name: "team",
         component: TeamPage,
+    },
+    {
+        path: "/happening/:id",
+        name: "happening",
+        component: HappeningPage,
     },
 ];
