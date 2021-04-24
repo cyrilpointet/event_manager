@@ -55,7 +55,7 @@
 
             <v-btn
                 v-if="isUserAdmin"
-                @click="deleteHappening"
+                @click="askDeleteHappening"
                 class="mb-4"
                 color="error"
             >
@@ -121,6 +121,18 @@ export default {
         }
     },
     methods: {
+        askDeleteHappening() {
+            const event = new CustomEvent("confirmAction", {
+                detail: {
+                    title: `Supprimer cet évènement ?`,
+                    text: "Cette action est irréversible",
+                    callback: () => {
+                        this.deleteHappening();
+                    },
+                },
+            });
+            document.dispatchEvent(event);
+        },
         async deleteHappening() {
             try {
                 await this.$store.dispatch(
@@ -128,6 +140,12 @@ export default {
                     this.happening.id
                 );
                 this.$store.commit("team/removeTeam");
+                const event = new CustomEvent("displayMsg", {
+                    detail: {
+                        text: "Evènement supprimé",
+                    },
+                });
+                document.dispatchEvent(event);
                 this.$router.push({ name: "home" });
             } catch {
                 const event = new CustomEvent("displayMsg", {

@@ -108,7 +108,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                             v-model="endTime"
-                            label="Heure de début"
+                            label="Heure de fin"
                             prepend-icon="mdi-clock-time-four-outline"
                             readonly
                             v-bind="attrs"
