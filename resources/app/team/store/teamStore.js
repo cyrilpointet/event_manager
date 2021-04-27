@@ -9,6 +9,9 @@ export const teamStore = {
     }),
     getters: {
         isUserAdmin: (state, getters, rootState) => {
+            if (!state.team) {
+                return false;
+            }
             const userId = rootState.user.user.id;
             const member = state.team.members.find(
                 (elem) => elem.id === userId

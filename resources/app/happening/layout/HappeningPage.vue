@@ -38,9 +38,13 @@
                     <p>{{ happening.end }}</p>
 
                     <h5>Description</h5>
-                    <p>{{ happening.description }}</p>
+                    <p style="white-space: pre-line">
+                        {{ happening.description }}
+                    </p>
                     <h5>Lieu</h5>
-                    <p>{{ happening.place }}</p>
+                    <p style="white-space: pre-line">
+                        {{ happening.place }}
+                    </p>
                 </v-card-text>
             </v-card>
 
@@ -62,15 +66,17 @@
                 Supprimer
             </v-btn>
 
-            <v-card class="mb-4" v-if="isUserAdmin && edit">
-                <v-card-title>Modifier</v-card-title>
-                <v-card-text>
-                    <UpsertHappening
-                        :happening="happening"
-                        @updated="edit = false"
-                    />
-                </v-card-text>
-            </v-card>
+            <v-dialog v-model="edit" width="500">
+                <v-card v-if="isUserAdmin && edit">
+                    <v-card-title>Modifier</v-card-title>
+                    <v-card-text>
+                        <UpsertHappening
+                            :happening="happening"
+                            @updated="edit = false"
+                        />
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
         </div>
     </div>
 </template>
@@ -109,7 +115,7 @@ export default {
                 this.$router.push({ name: "home" });
             }
         }
-        if (!this.team || this.$route.params.id !== this.happening.team.id) {
+        if (!this.team || this.team.id !== this.happening.team.id) {
             try {
                 await this.$store.dispatch(
                     "team/getTeamById",

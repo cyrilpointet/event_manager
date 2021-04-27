@@ -17,13 +17,6 @@
                 </v-card-actions>
             </v-card>
 
-            <v-card class="mb-4">
-                <v-card-title>Prochains évènements</v-card-title>
-                <v-card-text>
-                    <NextTeamHappenings />
-                </v-card-text>
-            </v-card>
-
             <v-card
                 class="mb-4"
                 v-if="isUserAdmin && team.invitations.length > 0"
@@ -34,10 +27,18 @@
                 </v-card-text>
             </v-card>
 
-            <v-card class="mb-4" v-if="isUserAdmin && blankEvent">
-                <v-card-title>Créer un évènement</v-card-title>
+            <v-card class="mb-4">
+                <v-card-title>Prochains évènements</v-card-title>
                 <v-card-text>
-                    <UpsertHappening :happening="blankEvent" />
+                    <NextTeamHappenings />
+                    <div
+                        v-if="isUserAdmin && blankEvent"
+                        class="d-flex justify-center mt-4"
+                    >
+                        <v-btn @click="isCreateHappeningOpen = true">
+                            Créer un nouvel évènement
+                        </v-btn>
+                    </div>
                 </v-card-text>
             </v-card>
 
@@ -56,6 +57,15 @@
                 </v-card-text>
             </v-card>
         </div>
+
+        <v-dialog v-model="isCreateHappeningOpen" width="500">
+            <v-card v-if="isUserAdmin && blankEvent">
+                <v-card-title>Créer un évènement</v-card-title>
+                <v-card-text>
+                    <UpsertHappening :happening="blankEvent" />
+                </v-card-text>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -84,6 +94,7 @@ export default {
     data: function () {
         return {
             blankEvent: null,
+            isCreateHappeningOpen: false,
         };
     },
     computed: {

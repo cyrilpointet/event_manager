@@ -7,9 +7,9 @@
                 :rules="[rules.required]"
             />
 
-            <v-text-field v-model="description" label="Description" />
+            <v-textarea v-model="description" label="Description" />
 
-            <v-text-field v-model="place" label="Lieu" />
+            <v-textarea v-model="place" label="Lieu" />
 
             <div class="d-flex">
                 <v-menu
@@ -201,7 +201,7 @@ export default {
                 await this.$store.dispatch("happening/createHappening", {
                     teamId: this.team.id,
                     happening: {
-                        name: "test api event name",
+                        name: this.name,
                         status: this.status,
                         description: this.description,
                         place: this.place,
@@ -209,6 +209,7 @@ export default {
                         end_at: this.endDate + " " + this.endTime,
                     },
                 });
+                await this.$store.dispatch("team/getTeamById", this.team.id);
                 this.ajaxPending = false;
                 this.$router.push({
                     name: "happening",
@@ -224,13 +225,14 @@ export default {
             try {
                 await this.$store.dispatch("happening/updateHappening", {
                     id: this.happeningId,
-                    name: "test api event name",
+                    name: this.name,
                     status: this.status,
                     description: this.description,
                     place: this.place,
                     start_at: this.startDate + " " + this.startTime,
                     end_at: this.endDate + " " + this.endTime,
                 });
+                await this.$store.dispatch("team/getTeamById", this.team.id);
                 this.ajaxPending = false;
                 this.$emit("updated");
             } catch (e) {
