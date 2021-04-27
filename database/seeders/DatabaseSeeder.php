@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         DB::table('teams_users')->truncate();
+        DB::table('happening_user')->truncate();
         $this->call(StatusSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(TeamsTableSeeder::class);
