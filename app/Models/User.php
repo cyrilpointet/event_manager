@@ -60,4 +60,9 @@ class User extends Authenticatable
             'email'
         );
     }
+
+    public function happenings()
+    {
+        return $this->belongsToMany(Happening::class)->withPivot('presence');
+    }
 }

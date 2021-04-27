@@ -24,12 +24,15 @@ class EnsureIsHappeningMember
                 'message' => ['Happening inconnu']
             ], 404);
         }
-        $teams = $user->teams()->where('team_id', $happening->team_id)->get();
-        if (0 === count($teams)) {
-            return response([
-                'message' => ['Non membre du groupe']
-            ], 401);
+        foreach ($happening->users as $elem) {
+            if ($user->id === $elem->id) {
+                return $next($request);
+                exit;
+            }
         }
-        return $next($request);
+
+        return response([
+            'message' => ["Non membre de l'évènement"]
+        ], 401);
     }
 }

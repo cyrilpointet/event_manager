@@ -17,7 +17,7 @@ class HappeningSeeder extends Seeder
         Happening::truncate();
         $start = new \DateTime('2021-04-10 11:21:50');
         $end = new \DateTime('2021-04-10 12:21:50');
-        Happening::create([
+        $test1 = Happening::create([
             'name' => 'test event 1',
             'status_id' => 1,
             'description' => 'description test',
@@ -26,10 +26,12 @@ class HappeningSeeder extends Seeder
             'start_at' => $start,
             'end_at' => $end
         ]);
+        $test1->users()->attach(1);
+        $test1->users()->attach(2);
 
         $start = new \DateTime('2021-04-25 11:21:50');
         $end = new \DateTime('2021-04-25 12:21:50');
-        Happening::create([
+        $test2 = Happening::create([
             'name' => 'test event 2',
             'status_id' => 1,
             'description' => 'description test',
@@ -38,10 +40,12 @@ class HappeningSeeder extends Seeder
             'start_at' => $start,
             'end_at' => $end
         ]);
+        $test2->users()->attach(1);
+        $test2->users()->attach(2);
 
         $start = new \DateTime('2021-04-30 11:21:50');
         $end = new \DateTime('2021-04-30 12:21:50');
-        Happening::create([
+        $test3 = Happening::create([
             'name' => 'test event group 2',
             'status_id' => 1,
             'description' => 'description test',
@@ -50,5 +54,6 @@ class HappeningSeeder extends Seeder
             'start_at' => $start,
             'end_at' => $end
         ]);
+        $test3->users()->attach(2);
     }
 }
