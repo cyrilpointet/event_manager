@@ -22,6 +22,15 @@ export class Happening {
             id: rawHappening.team.id,
             name: rawHappening.team.name,
         };
+
+        this.members = [];
+        rawHappening.users.forEach((user) => {
+            this.members.push({
+                id: user.id,
+                name: user.name,
+                presence: user.pivot.presence,
+            });
+        });
     }
 
     get createdAt() {

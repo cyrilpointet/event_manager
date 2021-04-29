@@ -32,7 +32,7 @@ class UserController extends Controller
         $token = $user->createToken('event_manager')->plainTextToken;
         $user->teams;
         $user->invitations;
-        $user->happenings;
+        $user['upcomingHappenings'] = [];
 
         $response = [
             'user' => $user,
@@ -60,7 +60,10 @@ class UserController extends Controller
         $token = $user->createToken('event_manager')->plainTextToken;
         $user->teams;
         $user->invitations;
-        $user->happenings;
+        $user['upcomingHappenings'] = $user->happenings()->where('start_at', '>', new \DateTime())->get();
+        foreach ($user['upcomingHappenings'] as $happening) {
+            $happening->team;
+        }
 
         $response = [
             'user' => $user,
@@ -75,7 +78,10 @@ class UserController extends Controller
         $user = $request->user();
         $user->teams;
         $user->invitations;
-        $user->happenings;
+        $user['upcomingHappenings'] = $user->happenings()->where('start_at', '>', new \DateTime())->get();
+        foreach ($user['upcomingHappenings'] as $happening) {
+            $happening->team;
+        }
         return $user;
     }
 

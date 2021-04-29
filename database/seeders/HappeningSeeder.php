@@ -15,8 +15,8 @@ class HappeningSeeder extends Seeder
     public function run()
     {
         Happening::truncate();
-        $start = new \DateTime('2021-04-10 11:21:50');
-        $end = new \DateTime('2021-04-10 12:21:50');
+        $start = new \DateTime('2021-11-10 11:21:50');
+        $end = new \DateTime('2021-11-10 12:21:50');
         $test1 = Happening::create([
             'name' => 'test event 1',
             'status_id' => 1,
@@ -43,8 +43,8 @@ class HappeningSeeder extends Seeder
         $test2->users()->attach(1);
         $test2->users()->attach(2);
 
-        $start = new \DateTime('2021-04-30 11:21:50');
-        $end = new \DateTime('2021-04-30 12:21:50');
+        $start = new \DateTime('2021-11-30 11:21:50');
+        $end = new \DateTime('2021-11-30 12:21:50');
         $test3 = Happening::create([
             'name' => 'test event group 2',
             'status_id' => 1,

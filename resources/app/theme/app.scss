@@ -46,3 +46,19 @@
 .status-3 {
     color: var(--v-error-base);
 }
+
+.presence-0 {
+    background-color: white;
+}
+
+.presence-1 {
+    background-color: var(--v-succes-base);
+}
+
+.presence-2 {
+    background-color: var(--v-error-base);
+}
+
+.presence-3 {
+    background-color: var(--v-primary-base);
+}

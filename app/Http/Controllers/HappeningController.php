@@ -147,6 +147,15 @@ class HappeningController extends Controller
                 "message" => "Utilisateur inconnu"
             ], 404);
         }
+
+        foreach ($user->teams as $team) {
+            if ($team->id === $happening->team_id && 1 === $team->pivot->admin) {
+                return response([
+                    "message" => "Vous ne pouvez pas supprimer un admin"
+                ], 401);
+            }
+        }
+
         $happening->users()->detach($user->id);
 
         $happening->team;

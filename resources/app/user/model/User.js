@@ -1,5 +1,6 @@
 import { UserTeam } from "@/user/model/UserTeam";
 import { Invitation } from "@/invitation/model/Invitation";
+import { UserHappening } from "@/user/model/UserHappening";
 
 export class User {
     constructor(rawUser) {
@@ -14,6 +15,10 @@ export class User {
         this.invitations = [];
         rawUser.invitations.forEach((invitation) => {
             this.invitations.push(new Invitation(invitation));
+        });
+        this.upcomingHappenings = [];
+        rawUser.upcomingHappenings.forEach((happening) => {
+            this.upcomingHappenings.push(new UserHappening(happening));
         });
     }
 

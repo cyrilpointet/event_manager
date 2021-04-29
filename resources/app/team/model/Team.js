@@ -1,6 +1,5 @@
 import { TeamMember } from "@/team/model/TeamMember";
 import { Invitation } from "@/invitation/model/Invitation";
-import { TeamHappening } from "@/team/model/TeamHappening";
 
 export class Team {
     constructor(rawTeam) {
@@ -16,11 +15,6 @@ export class Team {
         this.invitations = [];
         rawTeam.invitations.forEach((invitation) => {
             this.invitations.push(new Invitation(invitation));
-        });
-
-        this.upcomingHappenings = [];
-        rawTeam.upcomingHappenings.forEach((happening) => {
-            this.upcomingHappenings.push(new TeamHappening(happening));
         });
     }
 

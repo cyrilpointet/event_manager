@@ -48,23 +48,32 @@
                 </v-card-text>
             </v-card>
 
-            <v-btn
-                v-if="isUserAdmin"
-                @click="edit = !edit"
-                class="mb-4"
-                color="primary"
-            >
-                editer
-            </v-btn>
+            <div class="mb-4">
+                <v-btn
+                    v-if="isUserAdmin"
+                    @click="edit = !edit"
+                    class="mb-4"
+                    color="primary"
+                >
+                    editer
+                </v-btn>
 
-            <v-btn
-                v-if="isUserAdmin"
-                @click="askDeleteHappening"
-                class="mb-4"
-                color="error"
-            >
-                Supprimer
-            </v-btn>
+                <v-btn
+                    v-if="isUserAdmin"
+                    @click="askDeleteHappening"
+                    class="mb-4"
+                    color="error"
+                >
+                    Supprimer
+                </v-btn>
+            </div>
+
+            <v-card class="mb-4">
+                <v-card-title>Participation</v-card-title>
+                <v-card-text>
+                    <HappeningMembers />
+                </v-card-text>
+            </v-card>
 
             <v-dialog v-model="edit" width="500">
                 <v-card v-if="isUserAdmin && edit">
@@ -84,10 +93,11 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import UpsertHappening from "@/happening/component/UpsertHappening";
+import HappeningMembers from "@/user/component/HappeningMembers";
 
 export default {
     name: "HappeningPage",
-    components: { UpsertHappening },
+    components: { UpsertHappening, HappeningMembers },
     data: () => {
         return {
             edit: false,
@@ -104,7 +114,11 @@ export default {
         }),
     },
     async created() {
-        if (!this.happening || this.$route.params.id !== this.happening.id) {
+        if (
+            !this.happening ||
+            !this.team ||
+            this.$route.params.id !== this.happening.id
+        ) {
             this.$store.commit("happening/setHappening", null);
             try {
                 await this.$store.dispatch(
@@ -115,7 +129,11 @@ export default {
                 this.$router.push({ name: "home" });
             }
         }
-        if (!this.team || this.team.id !== this.happening.team.id) {
+        if (
+            !this.team ||
+            !this.happening ||
+            this.team.id !== this.happening.team.id
+        ) {
             try {
                 await this.$store.dispatch(
                     "team/getTeamById",

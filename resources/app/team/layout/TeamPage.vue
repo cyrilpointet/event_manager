@@ -126,6 +126,7 @@ export default {
             name: "",
             description: "",
             place: "",
+            users: [],
 
             created_at: now.format("MM/DD/YYYY HH:mm:ss"),
             updated_at: now.format("MM/DD/YYYY HH:mm:ss"),

@@ -107,6 +107,10 @@ class InvitationController extends Controller
 
         $user->teams;
         $user->invitations;
+        $user['upcomingHappenings'] = $user->happenings()->where('start_at', '>', new \DateTime())->get();
+        foreach ($user['upcomingHappenings'] as $happening) {
+            $happening->team;
+        }
 
         return $user;
     }
