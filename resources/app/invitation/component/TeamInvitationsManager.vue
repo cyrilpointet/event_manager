@@ -12,17 +12,17 @@
                 <p class="flex-grow-1 ma-0">{{ invitation.team.name }}</p>
                 <div>
                     <v-btn
-                        text
                         x-small
+                        rounded
                         color="primary"
                         :disabled="ajaxPending"
                         @click="manageInvitation(invitation.id, true)"
                     >
-                        Accepter
+                        Rejoindre
                     </v-btn>
 
                     <v-btn
-                        text
+                        rounded
                         x-small
                         color="error"
                         :disabled="ajaxPending"

@@ -75,7 +75,7 @@ export default {
             } catch (error) {
                 const event = new CustomEvent("displayMsg", {
                     detail: {
-                        text: "Oups...",
+                        text: "Oups... Une erreur est survenue !",
                         color: "error",
                     },
                 });
@@ -108,7 +108,7 @@ export default {
                 console.log(error);
                 const event = new CustomEvent("displayMsg", {
                     detail: {
-                        text: "Oups...",
+                        text: "Oups... Une erreur est survenue !",
                         color: "error",
                     },
                 });

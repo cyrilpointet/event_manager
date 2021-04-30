@@ -43,6 +43,6 @@ Route::middleware(['auth:sanctum', 'isHappeningMember'])->group(function () {
 Route::middleware(['auth:sanctum', 'isHappeningAdmin'])->group(function () {
     Route::put('/happening/{id}', [HappeningController::class, 'update']);
     Route::post('/happening/{id}/addMember', [HappeningController::class, 'addMember']);
-    Route::delete('/happening/{id}/addMember', [HappeningController::class, 'removeMember']);
+    Route::delete('/happening/{id}/removeMember', [HappeningController::class, 'removeMember']);
     Route::delete('/happening/{id}', [HappeningController::class, 'delete']);
 });

@@ -33,9 +33,11 @@ export const happeningStore = {
                     values.happening
                 )
                     .then((happening) => {
-                        const newHappening = new Happening(happening);
-                        context.commit("setHappening", newHappening);
-                        resolve(newHappening);
+                        context.commit(
+                            "setHappening",
+                            new Happening(happening)
+                        );
+                        resolve(happening);
                     })
                     .catch((e) => {
                         reject(e);
@@ -46,9 +48,11 @@ export const happeningStore = {
             return new Promise((resolve, reject) => {
                 ApiConsumer.put(`happening/${values.id}`, values)
                     .then((happening) => {
-                        const newHappening = new Happening(happening);
-                        context.commit("setHappening", newHappening);
-                        resolve(newHappening);
+                        context.commit(
+                            "setHappening",
+                            new Happening(happening)
+                        );
+                        resolve(happening);
                     })
                     .catch((e) => {
                         reject(e);
@@ -61,6 +65,39 @@ export const happeningStore = {
                     .then((resp) => {
                         context.commit("setHappening", null);
                         resolve(resp);
+                    })
+                    .catch((e) => {
+                        reject(e);
+                    });
+            });
+        },
+        addMemberToHappening(context, values) {
+            return new Promise((resolve, reject) => {
+                ApiConsumer.post(`happening/${values.happeningId}/addMember`, {
+                    user_id: values.userId,
+                })
+                    .then((happening) => {
+                        const newHappening = new Happening(happening);
+                        context.commit("setHappening", newHappening);
+                        resolve(newHappening);
+                    })
+                    .catch((e) => {
+                        reject(e);
+                    });
+            });
+        },
+        removeMemberFromHappening(context, values) {
+            return new Promise((resolve, reject) => {
+                ApiConsumer.delete(
+                    `happening/${values.happeningId}/removeMember`,
+                    {
+                        user_id: values.userId,
+                    }
+                )
+                    .then((happening) => {
+                        const newHappening = new Happening(happening);
+                        context.commit("setHappening", newHappening);
+                        resolve(newHappening);
                     })
                     .catch((e) => {
                         reject(e);

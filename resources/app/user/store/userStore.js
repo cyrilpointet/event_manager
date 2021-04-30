@@ -1,5 +1,6 @@
 import { ApiConsumer } from "@/common/services/ApiConsumer";
 import { User } from "@/user/model/User";
+import { UserHappening } from "@/user/model/UserHappening";
 
 export const userStore = {
     namespaced: true,
@@ -26,6 +27,19 @@ export const userStore = {
         removeTeam(state, teamId) {
             const teams = state.user.teams.filter((elem) => elem.id !== teamId);
             state.user.teams = teams;
+        },
+        upsertHappening(state, happening) {
+            const happenings = state.user.upcomingHappenings.filter(
+                (elem) => elem.id !== happening.id
+            );
+            happenings.push(new UserHappening(happening));
+            state.user.upcomingHappenings = happenings;
+        },
+        removeHappening(state, id) {
+            const happenings = state.user.upcomingHappenings.filter(
+                (elem) => elem.id !== id
+            );
+            state.user.upcomingHappenings = happenings;
         },
     },
     actions: {

@@ -198,18 +198,21 @@ export default {
         async createHappening() {
             this.ajaxPending = true;
             try {
-                await this.$store.dispatch("happening/createHappening", {
-                    teamId: this.team.id,
-                    happening: {
-                        name: this.name,
-                        status: this.status,
-                        description: this.description,
-                        place: this.place,
-                        start_at: this.startDate + " " + this.startTime,
-                        end_at: this.endDate + " " + this.endTime,
-                    },
-                });
-                await this.$store.dispatch("team/getTeamById", this.team.id);
+                const newHappening = await this.$store.dispatch(
+                    "happening/createHappening",
+                    {
+                        teamId: this.team.id,
+                        happening: {
+                            name: this.name,
+                            status: this.status,
+                            description: this.description,
+                            place: this.place,
+                            start_at: this.startDate + " " + this.startTime,
+                            end_at: this.endDate + " " + this.endTime,
+                        },
+                    }
+                );
+                this.$store.commit("user/upsertHappening", newHappening);
                 this.ajaxPending = false;
                 this.$router.push({
                     name: "happening",
@@ -223,16 +226,19 @@ export default {
         async updateHappening() {
             this.ajaxPending = true;
             try {
-                await this.$store.dispatch("happening/updateHappening", {
-                    id: this.happeningId,
-                    name: this.name,
-                    status: this.status,
-                    description: this.description,
-                    place: this.place,
-                    start_at: this.startDate + " " + this.startTime,
-                    end_at: this.endDate + " " + this.endTime,
-                });
-                await this.$store.dispatch("team/getTeamById", this.team.id);
+                const updatedHappening = await this.$store.dispatch(
+                    "happening/updateHappening",
+                    {
+                        id: this.happeningId,
+                        name: this.name,
+                        status: this.status,
+                        description: this.description,
+                        place: this.place,
+                        start_at: this.startDate + " " + this.startTime,
+                        end_at: this.endDate + " " + this.endTime,
+                    }
+                );
+                this.$store.commit("user/upsertHappening", updatedHappening);
                 this.ajaxPending = false;
                 this.$emit("updated");
             } catch (e) {

@@ -40,7 +40,7 @@ export default {
                 this.ajaxPending = false;
                 const event = new CustomEvent("displayMsg", {
                     detail: {
-                        text: "Oups...",
+                        text: "Oups... Une erreur est survenue !",
                         color: "error",
                     },
                 });

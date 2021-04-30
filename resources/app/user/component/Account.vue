@@ -10,6 +10,13 @@
             </v-card-text>
         </v-card>
 
+        <v-card class="mb-4" v-if="user.invitations.length > 0">
+            <v-card-title>Invitations</v-card-title>
+            <v-card-text>
+                <TeamInvitationsManager />
+            </v-card-text>
+        </v-card>
+
         <v-card class="mb-4">
             <v-card-title>Prochains évènements</v-card-title>
             <v-card-text>
@@ -21,13 +28,6 @@
             <v-card-title>Mes groupes</v-card-title>
             <v-card-text>
                 <TeamViewer />
-            </v-card-text>
-        </v-card>
-
-        <v-card class="mt-4" v-if="user.invitations.length > 0">
-            <v-card-title>Invitations</v-card-title>
-            <v-card-text>
-                <TeamInvitationsManager />
             </v-card-text>
         </v-card>
     </div>
